@@ -1,0 +1,60 @@
+Vue  另外一个框架   3个框架  基本功 扎实
+
+
+
+Vue ------尤雨溪（笔名） 设计师 40000
+（使用的语法上来说它的设计是最优雅）
+
+文档： 写的是英语， 中文（不确定） 推广（知乎）
+
+avalon ---兼容ie6  司徒正美 github 3000
+
+vue 权威指南：滴滴技术部（开发功能内部的前端项目）的前端团队
+
+vue 学习了ng(多一些)/react
+
+语法上简洁 优雅  双向数据绑定  组件化的开发  单向数据流
+
+angular 重量级的框架
+
+
+React 全家桶
+
+
+vue在所有的框架中，最轻巧、简单、简洁、优雅
+国内非常火
+
+小巧的项目 可以选择vue去做
+
+亮点，面试的时候可以发挥,极大的价值
+（太大，最最重要的知识点）
+function Debounce(func, wait){
+   var timeout = null;
+   return function(){
+      var args = arguments;
+      var later = function(){
+          func.apply(null, args);
+      }
+      clearTimeout(timeout)
+      timeout = setTimeout(later, wait||300)
+   }
+   //性能优化一大利器
+}
+//当用户进行频率过快操作时，优化代码性能
+window.addEventListener('resize', Debounce(function(){
+   console.log('窗口大小发生了改变')
+}), 500)
+
+
+vue 与 ng 它们都是实现了双向数据绑定，但是它们的原理不一样
+
+
+ng 可以进行动态的双向数据绑定（脏检测机制）
+
+vue 就只能进行静态的双向数据绑定（ES5 defineProptry）
+
+总之： vue双向数据绑定相对于ng来说，要弱, 但写起来要简洁很多
+
+Array push/slice/splice/pop...去改变我们的数组
+
+ng的体积 是 vue体积 5倍 小巧

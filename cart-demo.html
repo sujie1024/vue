@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="wrapper" id="cart">
+			<ul v-for="(item, index) in list">
+				<li>
+					<div class="text">
+						  <span class="name">{{item.name}}</span>元
+						  <span @click="minus(index)">-</span>
+						  <span class="num">
+						  	{{item.num}}
+						  </span> 
+						  <span @click="plus(index)">+</span> 
+						  <span class="price">{{item.price}}</span>元
+					</div>
+				</li>
+			</ul>
+			总价： 
+			<p>{{TotalPrice}}元</p>
+		</div>
+	<script src="node_modules/vue/dist/vue.js"></script>
+	<script>
+		var app = new Vue({
+		  el: '#cart',
+		  data: {
+		  	 list: [{
+				name: '牛奶',
+				price: 2,
+				num: 5
+			}, {
+				name: '鲜花',
+				price: 3,
+				num: 2
+			}]
+		  },
+		  methods: {
+		  	plus: function(index){
+		  		console.log('我进行了加法', index);
+		  		this.$data.list[index].num++;
+		  	},
+		  	minus: function(index){
+		  		console.log('我进行了减法');
+		  		this.$data.list[index].num--;
+		  	}
+		  },
+		  computed: {
+		  	 TotalPrice: function(){
+		  	 	var data = this.list;
+		  	 	var sum = 0;
+		  	 	for(var i =0; i < data.length;i++) {
+		  	 		sum+= data[i].num * data[i].price;
+		  	 	} 
+		  	 	return sum
+		  	 }
+		  }
+		  /*filters: {
+		  	reverse: function(value){
+		  		return value.split('').reverse().join('');	 	
+		  	}
+		  }*/
+		})
+	</script>
+</body>
+</html>

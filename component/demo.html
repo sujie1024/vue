@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<ul id="example">
+		{{totalCount}}
+		<li v-for="num in list">{{num}}</li>
+		<my-component v-on:increment="TotalIncrement" :key="index" v-for="(num,index) in list" :num="num" list="hello world"></my-component>
+		<!-- 
+		function mycomponent(list){
+		
+		}
+		mycomponent('hello world') ==> DOM元素 -->
+	</ul>
+	<p>------------我是分割线---------</p>
+	<ul id="bad-example">
+		<h1>坏的</h1>
+		<li v-for="num in list">{{num}}</li>
+		<my-component :key="index" v-for="(num,index) in list" :num="num" list="hello world"></my-component>
+		<!-- 
+		function mycomponent(list){
+		
+		}
+		mycomponent('hello world') ==> DOM元素 -->
+	</ul>
+	<script src="../node_modules/vue/dist/vue.js"></script>
+	<script>
+		/*Vue.component('my-component', {
+			template: '<div>Hello world</div>'
+		});*/
+		/*var counter = {
+			data: 0
+		}*/
+		var app = new Vue({
+			el: '#example',
+			data: {
+				list: [18, 21, 22],
+				totalCount: 10
+			},
+			methods: {
+				TotalIncrement: function(){
+					this.totalCount+=2;	 	
+				}
+			},
+			components: {
+				'my-component' : {
+					template: '<li @click="add">part Hello world, num---> {{counter}}---> list：{{list}}----> num:{{number}}</li>',
+					props:['list', 'num'],
+					data: function(){
+						//每个组件的状态都与外界完全隔离
+						return {
+							counter: 0,
+							number: this.num
+						}	
+					},
+					methods: {
+						add: function(){
+							this.number++;
+							this.counter++;	
+							this.$emit('increment'); //触发自定义事件？为了让父组件得到子组件的消息
+						}
+					}
+				}
+			}
+		});
+
+
+		var Badapp = new Vue({
+			el: '#bad-example',
+			data: {
+				list: [18, 21, 22]
+			},
+			components: {
+				'my-component' : {
+					template: '<li @click="add">part Hello world, num---> {{counter}}---> list：{{list}}----> num:{{num}}</li>',
+					props:['list', 'num'],
+					data: function(){
+						//每个组件的状态都与外界完全隔离
+						return {
+							counter: 0
+						}	
+					},
+					methods: {
+						add: function(){
+							this.num++;
+							//会提出警告， 当外部数据发生改变时，子组件自己的状态得不到有效的保存
+							this.counter++;	
+						}
+					}
+				}
+			}
+		});
+		//Badapp.list.push(88999)
+	</script>
+</body>
+</html>

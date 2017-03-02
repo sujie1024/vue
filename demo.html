@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style>
+		.red {
+			background: red;
+		}
+		.green {
+			background: green;
+		}
+		.active {
+			background: orange;
+		}
+	</style>
+</head>
+<body>
+	<div id="app-2">
+		<p v-on:click="test(789)" :id="id">{{message}}</p>
+		<input type="text" @keyup.ctrl="handle" v-model="message" />
+		取反字符串：{{reverseMessage}}
+
+		名字：{{items.name}}  姓名： {{items.age}}
+		<ul>
+			<li v-for="(item,index) in list" v-if="item>2">{{item}}</li>
+		</ul>
+		遍历我们的对象
+		<ul>
+			<li v-for="(value,key) in items">{{key}}---{{value}}</li>
+		</ul>
+		<p :style="{fontSize:'30px', fontWeight: 'bold'}" :class="{red: flag.red, green: flag.green}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, nam, iste. Veniam, repellat eveniet saepe debitis a nam doloremque laudantium suscipit dolorem assumenda ducimus non porro ipsum maxime deleniti facere!</p>
+	</div>
+	<script src="node_modules/vue/dist/vue.js"></script>
+	<script>
+		var app = new Vue({
+			el: '#app-2',
+			data: {
+				message: 'hello world',
+				id: 'param',
+				flag: {
+					red: true,
+					green: false,
+					active: false
+				},
+				items: {
+					name: 'I am Item',
+					age: 18,
+					t: 'test'
+				},
+				list: [1,2,3,4,5]
+			},
+			methods: {
+				test: function(value){
+					console.log('我进行了点击');
+					console.log(value);	 	
+				},
+				handle: function(){
+					console.log('我进行回车的敲击事件');	 	
+				}
+			},
+			computed: {
+				reverseMessage: function(){
+					return this.message + 'ssssss'
+				}
+			},
+			watch: {
+				'message': function(newvalue, oldvalue){
+						console.log('监听改变', newvalue, oldvalue); 	
+				}
+			}
+		});
+	</script>
+</body>
+</html>
